@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Deimos Asset Issuer for Stellar Network</title>
+        <script src="./node_modules/stellar-sdk/dist/stellar-sdk.min.js"></script>
+        <script src="signin.js"></script>
+        <script>
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <section class="main">
+                <div id="accounts">
+                    <form id="account-form" method="post">
+                        <fieldset>
+                                <legend id="issuer-legend">Issuer Account:</legend>
+                                Public Key: <input type="text" size="80" id="issuer-public-key" name="issuer-public-key" value="" /><br />
+                                Secret Seed: <input type="text" size="80" id="issuer-secret-key" name="issuer-secret-key" /><br />
+                        </fieldset>
+                        <fieldset>
+                                <legend>Distributor Account:</legend>
+                                Public Key: <input type="text" size="80" id="distribuitor-public-key" name="distribuitor-public-key" value="" /><br>
+                                Secret Seed: <input type="text" size="80" id="distribuitor-secret-key" name="distribuitor-secret-key" value="" /><br>
+                        </fieldset>
+                        <input type="checkbox" name="confirm-saved-accounts" id="confirm-accounts" /> I confirm that the account keys were saved and keeping on a safe place. I understand keys are not recoverable if they will be lost.
+                        <br />
+                        <button id="keys-button" type="button" onclick="createKeyPairs();">Create Key Pairs</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="signin-button" type="button" onclick="signIn();">Continue</button>
+                    </form>
+
+                </div>
+                <div id="distribuitor-account">
+
+                </div>
+            </section>
+            <footer></footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Deimos Asset Issuer for Stellar Network</title>
+    <script src="manage_assets.js"></script>
+  </head>
+  <body>
+    <h2>Manage Assets</h2>
+    <div class="container">
+        <section class="main">
+            <div id="accounts">
+                <form id="panel-form" method="post">
+                    <fieldset>
+                        <legend>Issuer Account</legend>
+                        <p>Public Key (Account Address): <span id="issuer-public"><script>document.write(issuerPublic)</script></span> </p>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Distributor Account</legend>
+                        <p>Public Key (Account Address): <span id="distribuitor-public"><script>document.write(distributorPublic)</script></span> </p>
+                        <fieldset>
+                            <legend>Asset Balances</legend>
+                            <div id="distributor-balances">
+                              <p>&nbsp;</p>
+                              <button id="load-balances" type="button" onclick="loadBalances();" >Load</button>
+                            </div>
+                        </fieldset>
+                    </fieldset>
+                    <button id="issue-asset-button" type="button" onclick="issueAsset();" disabled>Issue an Asset</button>
+                </form>
+            </div>
+        </section>
+      </div>
+  </body>
+</html>

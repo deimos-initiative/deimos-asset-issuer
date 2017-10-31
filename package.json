@@ -1,15 +1,14 @@
 {
-  "name": "app",
+  "name": "deimos-asset-issuer",
   "productName": "App",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.1-alpha0",
+  "description": "Deimos Asset Issuer for Stellar Network",
   "license": "MIT",
-  "repository": "user/repo",
-  "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deimos-initiative/deimos-asset-issuer.git"
   },
+  "author": "Deimos Initiative",
   "scripts": {
     "test": "xo",
     "start": "electron .",
@@ -29,5 +28,10 @@
       "node",
       "browser"
     ]
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/deimos-initiative/deimos-asset-issuer/issues"
+  },
+  "homepage": "https://github.com/deimos-initiative/deimos-asset-issuer",
+  "main": "main.js"
 }
