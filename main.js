@@ -19,7 +19,7 @@ const {app, BrowserWindow, Menu, ipcMain} = electron
 global.secretKeys = {
     issuer: '',
     distributor: ''
-};
+}
 
 let mainWindow
 
@@ -36,7 +36,7 @@ function createMainWindow(){
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'signin.html'),
     protocol: 'file:',
-    slashes:true
+    slashes: true
   }))
   // Quit app when closed
   mainWindow.on('closed', function(){
@@ -66,6 +66,8 @@ const mainMenuTemplate =  [
       {
         label:'Sign In to Another Account',
         click(){
+          secretKeys.issuer = ''
+          secretKeys.distributor = ''
           mainWindow.loadURL('file://' + __dirname + '/signin.html')
         }
       },
