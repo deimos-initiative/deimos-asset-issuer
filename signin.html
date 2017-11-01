@@ -3,10 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title>Deimos Asset Issuer for Stellar Network</title>
-        <script src="./node_modules/stellar-sdk/dist/stellar-sdk.min.js"></script>
-        <script src="signin.js"></script>
-        <script>
-        </script>
     </head>
     <body>
         <div class="container">
@@ -14,12 +10,12 @@
                 <div id="accounts">
                     <form id="account-form" method="post">
                         <fieldset>
-                                <legend id="issuer-legend">Issuer Account:</legend>
+                                <legend id="issuer-label">Issuer Account</legend>
                                 Public Key: <input type="text" size="80" id="issuer-public-key" name="issuer-public-key" value="" /><br />
                                 Secret Seed: <input type="text" size="80" id="issuer-secret-key" name="issuer-secret-key" /><br />
                         </fieldset>
                         <fieldset>
-                                <legend>Distributor Account:</legend>
+                                <legend id="distribuitor-label">Distributor Account</legend>
                                 Public Key: <input type="text" size="80" id="distribuitor-public-key" name="distribuitor-public-key" value="" /><br>
                                 Secret Seed: <input type="text" size="80" id="distribuitor-secret-key" name="distribuitor-secret-key" value="" /><br>
                         </fieldset>
@@ -38,4 +34,11 @@
             <footer></footer>
         </div>
     </body>
+  <script>window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.min.js');</script>
+  <script>window.i18n = new(require('./assets/js/i18n'));</script>
+  <script src="./node_modules/stellar-sdk/dist/stellar-sdk.min.js"></script>
+  <script src="signin.js"></script>
+  <script>
+    require('./assets/js/translations')
+  </script>
 </html>

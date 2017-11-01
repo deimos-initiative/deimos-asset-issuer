@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Deimos Asset Issuer for Stellar Network</title>
-    <script src="manage_assets.js"></script>
   </head>
   <body>
     <h2>Manage Assets</h2>
@@ -12,14 +11,14 @@
             <div id="accounts">
                 <form id="panel-form" method="post">
                     <fieldset>
-                        <legend>Issuer Account</legend>
+                        <legend id="issuer-label">Issuer Account</legend>
                         <p>Public Key (Account Address): <span id="issuer-public"><script>document.write(issuerPublic)</script></span> </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Distributor Account</legend>
+                        <legend id="distribuitor-label">Distributor Account</legend>
                         <p>Public Key (Account Address): <span id="distribuitor-public"><script>document.write(distributorPublic)</script></span> </p>
                         <fieldset>
-                            <legend>Asset Balances</legend>
+                            <legend id="assets-balances-label">Asset Balances</legend>
                             <div id="distributor-balances">
                               <p>&nbsp;</p>
                               <button id="load-balances" type="button" onclick="loadBalances();" >Load</button>
@@ -32,4 +31,11 @@
         </section>
       </div>
   </body>
+  <script>window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.min.js');</script>
+  <script>window.i18n = new(require('./assets/js/i18n'));</script>
+  <script src="./node_modules/stellar-sdk/dist/stellar-sdk.min.js"></script>
+  <script src="manage_assets.js"></script>
+  <script>
+    require('./assets/js/translations')
+  </script>
 </html>
