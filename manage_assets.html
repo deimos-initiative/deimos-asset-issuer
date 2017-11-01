@@ -3,6 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Deimos Asset Issuer for Stellar Network</title>
+    <script>window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.min.js');</script>
+    <script>window.i18n = new(require('./assets/js/i18n'));</script>
+    <script src="./node_modules/stellar-sdk/dist/stellar-sdk.min.js"></script>
+    <script src="manage_assets.js"></script>
+    <script>
+      require('./assets/js/translations')
+    </script>
   </head>
   <body>
     <h2>Manage Assets</h2>
@@ -31,11 +38,4 @@
         </section>
       </div>
   </body>
-  <script>window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.min.js');</script>
-  <script>window.i18n = new(require('./assets/js/i18n'));</script>
-  <script src="./node_modules/stellar-sdk/dist/stellar-sdk.min.js"></script>
-  <script src="manage_assets.js"></script>
-  <script>
-    require('./assets/js/translations')
-  </script>
 </html>
