@@ -25,13 +25,11 @@ let mainWindow
 
 // Listen for app to be ready
 app.on('ready', function(){
-  createMainWindow()
-})
-
-// Handle Main window
-function createMainWindow(){
   // Create new window
-  mainWindow = new BrowserWindow({})
+  mainWindow = new BrowserWindow({
+    frame: false,
+    show: false
+  })
   // Load html in window
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'signin.html'),
@@ -39,24 +37,31 @@ function createMainWindow(){
     slashes: true
   }))
   // Quit app when closed
-  mainWindow.on('closed', function(){
+  mainWindow.on('closed', function() {
+    secretKeys.issuer = ''
+    secretKeys.distributor = ''
     app.quit()
   })
-
+  mainWindow.once('ready-to-show', () => {
+     mainWindow.show()
+  })
   // Build menu from template
-  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  //const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   // Insert menu
-  Menu.setApplicationMenu(mainMenu)
-}
+  //Menu.setApplicationMenu(mainMenu)
+
+  //mainWindow.show()
+})
 
 // Catch signin-click
-ipcMain.on('signin-click', function(e, keys){
+ipcMain.on('signin-click', function(e, keys) {
   secretKeys.issuer = keys.issuer
   secretKeys.distributor = keys.distributor
 
   mainWindow.loadURL('file://' + __dirname + '/manage_assets.html')
 })
 
+/*
 // Create menu template
 const mainMenuTemplate =  [
   // Each object is a dropdown
@@ -105,3 +110,4 @@ if(process.env.NODE_ENV !== 'production'){
     ]
   })
 }
+*/
