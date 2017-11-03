@@ -3,55 +3,153 @@
 var StellarSdk = require('stellar-sdk')
 
 const electron = require('electron')
-const {ipcRenderer, remote} = electron
+const {remote, webContents} = electron
 
-const network = 'testnet' // or public
-
-if(network == 'testnet') {
-    StellarSdk.Network.useTestNetwork()
-    var server = new StellarSdk.Server('https://horizon-testnet.stellar.org')
-}
-else {
-    StellarSdk.Network.usePublicNetwork()
-    var server = new StellarSdk.Server('https://horizon.stellar.org')
-}
+let currentWindow = remote.getCurrentWindow()
 
 const issuerPair = StellarSdk.Keypair.fromSecret(remote.getGlobal('secretKeys').issuer)
 const distributorPair = StellarSdk.Keypair.fromSecret(remote.getGlobal('secretKeys').distributor)
-
 const issuerPublic = issuerPair.publicKey()
 const distributorPublic = distributorPair.publicKey()
 
-function distributorBalances(publicKey) {
-  let url = 'https://horizon-testnet.stellar.org/accounts/' + publicKey
-  let assets = '<p>Not found</p>'
-  fetch(url)
-  .then(response => response.json())
-  .then((output) => {
-    //console.log(typeof(output.balances))
-    if (output.balances.isArray  && output.balances.length > 0) {
-      assets = '<p>Not found</p>'
+function issuerLumensBalance(issuerPublic,network) {
+  let url = getApiUrl(network) + '/accounts/' + issuerPublic
+
+  $.getJSON(url)
+  .done(function(json) {
+    let assets = ''
+    let lumens = ''
+    if (json.balances.length > 0) {
+      $.each(json.balances, function(i, item) {
+        if(item.asset_type == 'native') {
+          lumens = '<br /><div><span id="lumens-balance">XLM (Stellar Lumens)</span>: '
+          lumens += '<span id="issuer-xlm-balance">' + item.balance + '</span></div><br />'
+        }
+     })
+     $('#issuer-balances').html(lumens)
+     $('#issuer-last-balance-msg').html('')
     }
-    else {
-      output.balances.forEach(function(balance) {
-          //console.log('Type:', balance.asset_type, ', Code:', balance.asset_code, ', Balance:', balance.balance)
-          if(balance.asset_type == 'native') {
-              assets += '<p>Lumens: Balance:' + balance.balance + '</p>'
+  })
+  .fail(function(json) {
+    $('#issuer-last-balance-msg').text('Update balances error')
+  })
+  .always(function() {
+    $('#issuer-last-balance-msg').text(document.lastModified)
+    // TODO: refresh translations
+  })
+}
+
+function distributorBalances(distributorPublic,issuerPublic,network) {
+  let url = getApiUrl(network) + '/accounts/' + distributorPublic
+
+  $.getJSON(url)
+  .done(function(json) {
+    let assets = ''
+    let lumens = ''
+    if (json.balances.length > 0) {
+      $.each(json.balances, function(i, item) {
+        if(item.asset_type == 'native') {
+          lumens = '<br /><div><span id="lumens-balance">XLM (Stellar Lumens)</span>: '
+          lumens += '<span id="distributor-xlm-balance">' + item.balance + '</span></div><br />'
+        }
+        else {
+          let assetOperations = ''
+          if (item.asset_issuer == issuerPublic) {
+            assetOperations += '&nbsp;&nbsp;&nbsp;<button type="button" data-label-issue-more '
+            assetOperations += ' id="issue-' + item.asset_code + '"  disabled>Issue more</button>'
+            assetOperations += '&nbsp;&nbsp;&nbsp;<button type="button" data-label-change-limit '
+            assetOperations += ' id="change-limit-' + item.asset_code + '" disabled>Change limit</button>'
           }
-          else {
-            assets += '<p>' + balance.asset_code + ' => Balance:' + balance.balance + ', Limit:' + balance.limit + ', Issuer:' + balance.asset_issuer + '</p>'
-          }
+          assets += '<div data-asset-balance>' + item.asset_code + assetOperations
+          assets += '<ul><li><span data-label-balance>Balance</span>: ' + item.balance
+          assets += '</li><li><span data-label-limit>Limit</span>: ' + item.limit
+          assets += '</li><li><span data-label-issuer>Issuer</span>: ' + item.asset_issuer
+          assets += '</ul></div>'
+        }
+     })
+    }
+    $('#distributor-balances').html(lumens + assets)
+    $('#distributor-last-balance-msg').html('')
+  })
+  .fail(function(json) {
+    $('#distributor-last-balance-msg').text('Update balances error')
+  })
+  .always(function() {
+    $('#distributor-last-balance-msg').text(document.lastModified)
+    // TODO: refresh translations
+  })
+}
+
+currentWindow.webContents.on('did-finish-load', () => {
+  $('#issuer-public').text(issuerPublic)
+  $('#distribuitor-public').text(distributorPublic)
+
+  issuerLumensBalance(issuerPublic,network)
+  distributorBalances(distributorPublic,issuerPublic,network)
+
+  let issuerXlm = parseFloat($('#issuer-xlm-balance').text()) || 0
+  let distributorXlm = parseFloat($('#distributor-xlm-balance').text()) || 0
+  // TODO: minimum balance warning
+  if (issuerXlm >= 31 && distributorXlm >= 31) {
+    $('#issue-asset-button').prop('disabled', false)
+  }
+  else {
+    $('#issue-asset-button').prop('disabled', true)
+  }
+  $('#close-app').click(function() {
+    require('electron').remote.app.quit()
+  })
+  $('#issue-asset-button').click(function() {
+    openModal('new-asset.html')
+  })
+  if (network == 'testnet') {
+    let url = getApiUrl(network) + '/friendbot?addr='
+    $('#issuer-get-lumens-button').click(function() {
+      $.getJSON(url + issuerPublic, function() {
+        $('#issuer-get-lumens-button').hide()
       })
-    }
-  })
-  .catch(err => {
-    assets = '<p>Not found' + err + '</p>'
-  })
-  document.getElementById('distributor-balances').innerHTML = assets
-}
+    })
+    $('#distributor-get-lumens-button').click(function() {
+      $.getJSON(url + distributorPublic, function() {
+        $('#distributor-get-lumens-button').hide()
+      })
+    })
+  }
+  if(process.env.NODE_ENV !== 'production') {
+    var devButton = $('<button type="button" id="dev-tools">Open Developer Tools</button>')
+    devButton.appendTo($('body'))
 
-distributorBalances(distributorPublic)
+    $('#dev-tools').click(function() {
+      currentWindow.toggleDevTools()
+    })
+  }
+})
 
-function loadBalances() {
-  distributorBalances(distributorPublic)
-}
+// Update balances
+setInterval(function() {
+  issuerLumensBalance(issuerPublic,network)
+  distributorBalances(distributorPublic,issuerPublic,network)
+
+  let issuerXlm = parseFloat($('#issuer-xlm-balance').text()) || 0
+  let distributorXlm = parseFloat($('#distributor-xlm-balance').text()) || 0
+
+  // TODO: minimum balance warning
+  if (issuerXlm >= 31 && distributorXlm >= 31) {
+    $('#issue-asset-button').prop('disabled', false)
+  }
+  else {
+    $('#issue-asset-button').prop('disabled', true)
+  }
+  if (issuerXlm == 0) {
+    $('#issuer-get-lumens-button').show()
+  }
+  else {
+    $('#issuer-get-lumens-button').hide()
+  }
+  if (distributorXlm == 0) {
+    $('#distributor-get-lumens-button').show()
+  }
+  else {
+    $('#distributor-get-lumens-button').hide()
+  }
+}, 10000)
