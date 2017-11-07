@@ -27,12 +27,12 @@ let mainWindow
 app.on('ready', function(){
   // Create new window
   mainWindow = new BrowserWindow({
-    frame: false,
+    frame: true,
     show: false
   })
   // Load html in window
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'signin.html'),
+    pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
   }))
