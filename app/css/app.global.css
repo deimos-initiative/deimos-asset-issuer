@@ -1,0 +1,32 @@
+* {
+    color: #48599a;
+}
+
+body > .uk-container {
+    border: 3px solid #6778ba;
+}
+
+.logo {
+    width: 180px;
+}
+
+button {
+    background-color: #6778ba !important;
+}
+
+select {
+    color: #48599a !important;
+    border-bottom: 2px solid #6678ba !important;
+}
+
+.uk-input:focus, .uk-select:focus, .uk-textarea:focus {
+	border-color: #6778ba;
+}
+
+.uk-checkbox:checked {
+	background-color: #6f80c3 !important;
+}
+
+.uk-checkbox:focus {
+	border-color: #6f80c3 !important;
+}

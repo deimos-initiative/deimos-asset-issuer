@@ -23,35 +23,34 @@ global.secretKeys = {
 
 let mainWindow
 
-// Listen for app to be ready
 app.on('ready', function(){
-  // Create new window
-  mainWindow = new BrowserWindow({
-    frame: true,
-    show: false
-  })
-  // Load html in window
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
-  // Quit app when closed
-  mainWindow.on('closed', function() {
-    secretKeys.issuer = ''
-    secretKeys.distributor = ''
-    app.quit()
-  })
-  mainWindow.once('ready-to-show', () => {
-     mainWindow.show()
-  })
-  // Build menu from template
-  //const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-  // Insert menu
-  //Menu.setApplicationMenu(mainMenu)
 
-  //mainWindow.show()
-})
+    mainWindow = new BrowserWindow({
+        frame: true,
+        // resizable: false,
+        width: 1024,
+        height: 768
+    });
+
+    mainWindow.loadURL('file://' + __dirname + '/app/index.html');
+
+    mainWindow.on('closed', function() {
+        secretKeys.issuer = "";
+        secretKeys.distributor = "";
+        app.quit();
+    });
+
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show();
+    });
+
+    // Build menu from template
+    //const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    // Insert menu
+    //Menu.setApplicationMenu(mainMenu)
+
+    //mainWindow.show()
+});
 
 // Catch signin-click
 ipcMain.on('signin-click', function(e, keys) {

@@ -17,6 +17,7 @@
   "dependencies": {
     "electron-debug": "^1.0.0",
     "jquery": "^3.2.1",
+    "uikit": "^3.0.0-beta.34",
     "stellar-sdk": "^0.7.3"
   },
   "devDependencies": {

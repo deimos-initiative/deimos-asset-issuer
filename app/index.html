@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deimos Asset Issuer | Login</title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="../node_modules/uikit/dist/css/uikit.min.css" />
+        
+    <!-- Deimos CSS -->
+    <link rel="stylesheet" href="css/app.global.css" />
+    <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+
+    <div class="uk-container uk-container-small uk-section-muted uk-margin-top uk-margin-bottom uk-padding uk-width-large">
+
+        <div class="uk-width-xlarge uk-margin uk-align-center">
+
+            <img src="img/logo.png" alt="Logo" class="logo uk-align-center" />
+            
+            <div class="uk-width-large uk-margin uk-align-center">
+                <form>
+                    <h3 class="uk-heading-line uk-text-center uk-margin"><span>Issuer Account</span></h3>
+
+                    <div id="issuer-account" class="uk-margin account">
+
+                        <div class="uk-form-controls">
+                            <select id="issuer-account-sign-method" class="account-sign-method uk-select ">
+                                <option value="secret-key">I own the issuer account secret key</option>
+                                <option value="generate-key-pair">I want to create a new issuing account</option>
+                            </select>
+                        </div>
+
+                        <div id="issuer-account-keys-placeholder" class="uk-margin">
+                            <div class="uk-form-controls">
+                                <input type="password" id="issuer-account-secret-key" class="uk-input" placeholder="Secret Key">
+                            </div>
+                        </div>
+
+                    </div> <!-- #issuer-account -->
+
+                    <div id="issuer-account-keys-placeholder"></div>
+
+                    <h3 class="uk-heading-line uk-text-center uk-margin"><span>Distributor Account</span></h3>
+
+                    <div id="distributor-account" class="uk-margin account">
+
+                        <div class="uk-form-controls">
+                            <select id="distributor-account-sign-method" class="account-sign-method uk-select ">
+                                <option value="secret-key">I own the distributor account secret key</option>
+                                <option value="generate-key-pair">I want to create a new distribution account</option>
+                            </select>
+                        </div>
+
+                        <div id="distributor-account-keys-placeholder" class="uk-margin">
+                            <div class="uk-form-controls">
+                                <input type="password" id="distributor-account-secret-key" class="uk-input" placeholder="Secret Key">
+                            </div>
+                        </div>
+
+                    </div> <!-- #distributor-account -->
+
+                    <div id="distributor-account-keys-placeholder"></div>
+
+                    <div id="safe-keys-placeholder"></div>  
+
+                    </div> <!-- Network -->
+                    <h3 class="uk-heading-line uk-text-center uk-margin"><span>Stellar Network</span></h3>
+
+                    <div class="uk-margin">
+                        <div class="uk-form-controls">
+                            <select id="network" class="uk-select ">
+                                <option value="public">Public (https://horizon.stellar.org)</option>
+                                <option value="test">Test (https://horizon-testnet.stellar.org)</option>
+                            </select>
+                        </div>
+
+                    <h3 class="uk-heading-line uk-text-center uk-margin"><span>Language</span></h3>
+
+                    <div class="uk-margin">
+                        <div class="uk-form-controls">
+                            <select id="language" class="uk-select ">
+                                <option value="en-us">English (en-US)</option>
+                                <option value="pt-br">Português (pt-BR)</option>
+                            </select>
+                        </div>
+                    </div> <!-- Language -->
+
+                    <button id="continue" class="uk-button uk-button-primary uk-width-1-1 uk-margin-top">CONTINUE</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery JS -->
+    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
+    <script>window.$ = window.jQuery = require('jquery');</script>
+
+    <!-- UIkit JS -->
+    <script src="../node_modules/uikit/dist/js/uikit.min.js"></script>
+    <script src="../node_modules/uikit/dist/js/uikit-icons.min.js"></script>
+
+    <!-- Deimos JS -->
+    <script src="js/index.js"></script>
+</body>
+</html>
