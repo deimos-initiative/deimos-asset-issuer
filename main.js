@@ -1,27 +1,31 @@
-'use strict'
+'use strict';
 
-const electron = require('electron')
-const path = require('path')
-const url = require('url')
+const electron = require('electron');
+const path = require('path');
+const url = require('url');
 
 require('electron-reload')(__dirname, {
-  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
 })
 
 // Adds debug features like hotkeys for triggering dev tools and reload
-require('electron-debug')()
+require('electron-debug')();
 
 // SET ENV
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'development';
 
-const {app, BrowserWindow, Menu, ipcMain} = electron
+const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 global.secretKeys = {
     issuer: '',
     distributor: ''
 }
+global.settings = {
+    network: '',
+    language: 'en-US'
+}
 
-let mainWindow
+let mainWindow;
 
 app.on('ready', function(){
 
@@ -29,7 +33,8 @@ app.on('ready', function(){
         frame: true,
         // resizable: false,
         width: 1024,
-        height: 768
+        height: 768,
+        'use-content-size': true,
     });
 
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
@@ -40,46 +45,58 @@ app.on('ready', function(){
         app.quit();
     });
 
+    // Build menu from template
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    //Insert menu
+    Menu.setApplicationMenu(mainMenu);
+
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
     });
 
-    // Build menu from template
-    //const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    // Insert menu
-    //Menu.setApplicationMenu(mainMenu)
-
-    //mainWindow.show()
+    mainWindow.on('show', () => {
+        mainWindow.webContents.executeJavaScript('loadTranslations()');
+    });
 });
 
 // Catch signin-click
-ipcMain.on('signin-click', function(e, keys) {
-  secretKeys.issuer = keys.issuer
-  secretKeys.distributor = keys.distributor
+ipcMain.on('signin-click', function(e, params) {
+  secretKeys.issuer = params.keys.issuer;
+  secretKeys.distributor = params.keys.distributor;
 
-  mainWindow.loadURL('file://' + __dirname + '/manage_assets.html')
-})
+  settings.network = params.network;
+  settings.language = params.language;
 
-/*
+  mainWindow.loadURL('file://' + __dirname + '/app/manage-assets.html');
+});
+
+// Catch language-change
+ipcMain.on('language-change', function(e, language) {
+  settings.language = language;
+  //$('body').localize();
+});
+
+
 // Create menu template
+// TODO: translate menu items
 const mainMenuTemplate =  [
   // Each object is a dropdown
   {
     label: 'Asset Issuer',
     submenu:[
       {
-        label:'Sign In to Another Account',
+        label:'Switch to Another Accounts',
         click(){
-          secretKeys.issuer = ''
-          secretKeys.distributor = ''
-          mainWindow.loadURL('file://' + __dirname + '/signin.html')
+          secretKeys.issuer = '';
+          secretKeys.distributor = '';
+          mainWindow.loadURL('file://' + __dirname + '/app/index.html');
         }
       },
       {
         label: 'Quit',
         accelerator:process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
         click(){
-          app.quit()
+          app.quit();
         }
       }
     ]
@@ -88,7 +105,7 @@ const mainMenuTemplate =  [
 
 // If OSX, add empty object to menu
 if(process.platform == 'darwin'){
-  mainMenuTemplate.unshift({})
+  mainMenuTemplate.unshift({});
 }
 
 // Add developer tools option if in dev
@@ -103,10 +120,9 @@ if(process.env.NODE_ENV !== 'production'){
         label: 'Toggle DevTools',
         accelerator:process.platform == 'darwin' ? 'Command+I' : 'Ctrl+I',
         click(item, focusedWindow){
-          focusedWindow.toggleDevTools()
+          focusedWindow.toggleDevTools();
         }
       }
     ]
   })
 }
-*/

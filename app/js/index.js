@@ -1,5 +1,14 @@
 var StellarSdk = require('stellar-sdk');
 
+const {remote, ipcMain, ipcRenderer} = require('electron');
+
+// TODO: better window autoresize
+let currentWindow = remote.getCurrentWindow();
+var contentSize = currentWindow.getContentSize();
+var baseWidth = $('.uk-container').width();
+var baseHeight = $('.uk-container').height();
+currentWindow.setContentSize(baseWidth + 100, baseHeight + 120);
+
 const SAFE_KEYS = "#safe-keys";
 const SAFE_KEYS_PLACEHOLDER = "#safe-keys-placeholder";
 const CONTINUE = "#continue";
@@ -12,6 +21,7 @@ const ACCOUNT_SIGN_METHOD = ".account-sign-method";
 const PUBLIC_KEY = "public-key";
 const SECRET_KEY = "secret-key";
 const GENERATE_KEY_PAIR = "generate-key-pair";
+const LANGUAGE = "language";
 
 var LOGIN = {
 
@@ -24,19 +34,21 @@ var LOGIN = {
 
 		$( CONTINUE ).click( LOGIN.validateForm );
 
+		$( LANGUAGE ).val('en-US');
+
 	},
 
 	onAccountSignMethodChange: function() {
 
-		var accountSignMethod = $( this ).val(); 
-		var accountType = $( this ).closest( ACCOUNT ).attr( "id" ); 
+		var accountSignMethod = $( this ).val();
+		var accountType = $( this ).closest( ACCOUNT ).attr( "id" );
 
 		var publicKeyInput = accountType + "-" + PUBLIC_KEY;
 		var secretKeyInput = accountType + "-" + SECRET_KEY;
 
 		LOGIN.$accountKeysPlaceholder = $( "#" + accountType + "-keys-placeholder" );
 
-		switch( accountSignMethod ) {	
+		switch( accountSignMethod ) {
 
 			case SECRET_KEY:
 
@@ -46,12 +58,13 @@ var LOGIN = {
 					id: accountType + "-" + SECRET_KEY,
 					"class": "uk-input",
 					type: "password",
-					placeholder: "Secret Key"
-				});	    	
+					"data-i18n": "[placeholder]Secret Key",
+					//placeholder: "Secret Key"
+				});
 
 				LOGIN.$accountKeysPlaceholder.append( $secretKeyDiv );
 
-				break;   
+				break;
 
 			case GENERATE_KEY_PAIR:
 
@@ -69,7 +82,7 @@ var LOGIN = {
 					value: publicKey,
 					readOnly: true,
 					disabled: true
-				});	
+				});
 
 				var $secretKeyDiv = LOGIN.createTextFieldWithLabel( "Secret Key:", {
 					id: accountType + "-" + SECRET_KEY,
@@ -78,19 +91,20 @@ var LOGIN = {
 					value: secretKey,
 					readOnly: true,
 					disabled: true
-				});	
+				});
 
 				LOGIN.$accountKeysPlaceholder.append( $publicKeyDiv );
 				LOGIN.$accountKeysPlaceholder.append( $secretKeyDiv );
 
 				if ( LOGIN.$safeKeysPlaceholder.is( ':empty' )) {
-					var safeKeysLabel = " I state the keys were kept in a safe place. I understand that once lost the account cannot be recovered.";
-					
-					var $safeKeysDiv = LOGIN.createCheckBoxWithLabel( "safe-keys", safeKeysLabel );	    	
+					var safeKeysLabel = '<span data-i18n="Keep keys in a safe place"> </span>';
+
+					var $safeKeysDiv = LOGIN.createCheckBoxWithLabel( "safe-keys", safeKeysLabel );
 					LOGIN.$safeKeysPlaceholder.append( $safeKeysDiv );
+					LOGIN.$safeKeysPlaceholder.localize();
 				}
 
-				LOGIN.sendNotification( "New key pair generated!" );
+				LOGIN.sendNotification( "New key pair generated" );
 
 				break;
 
@@ -130,13 +144,14 @@ var LOGIN = {
 	// TODO: create field builder
 	createTextField: function( params ) {
 
-        var $div = $("<div>", { 
-        	"class": "uk-form-controls uk-margin" 
+        var $div = $("<div>", {
+        	"class": "uk-form-controls uk-margin"
         });
 
         var $input = $( "<input>", params );
 
         $div.append( $input );
+				$input.localize();
 
         return $div;
 
@@ -146,7 +161,7 @@ var LOGIN = {
 
 		var $div = LOGIN.createTextField( params );
 
-		var $label = $( "<label>", { 
+		var $label = $( "<label>", {
 			html: label
 		});
 
@@ -156,12 +171,12 @@ var LOGIN = {
 	},
 
 	createCheckBoxWithLabel( id, label ) {
-		
-		var $div = $("<div>", { 
-			"class": "uk-margin uk-grid-small uk-child-width-auto uk-grid" 
+
+		var $div = $("<div>", {
+			"class": "uk-margin uk-grid-small uk-child-width-auto uk-grid"
 		});
 
-		var $label = $("<label>", { 
+		var $label = $("<label>", {
 			html: label
 		});
 
@@ -195,18 +210,18 @@ var LOGIN = {
 		var network = null;
 		var language =  null;
 
-		switch( $( ISSUER_ACCOUNT ).find( "select" ).val() ) {	
+		switch( $( ISSUER_ACCOUNT ).find( "select" ).val() ) {
 
 			case SECRET_KEY:
 				issuerAccountSecretKey = $( "#issuer-account-secret-key" ).val();
 
 				try {
-					issuerAccountPublicKey = StellarSdk.Keypair.fromSecret( issuerAccountSecretKey ).publicKey();					
+					issuerAccountPublicKey = StellarSdk.Keypair.fromSecret( issuerAccountSecretKey ).publicKey();
 				} catch(err) {
-					errors[ "#issuer-account-secret-key" ] = "Invalid issuer account checksum.";
+					errors[ "#issuer-account-secret-key" ] = "Invalid issuer account checksum";
 				}
 
-				break;   
+				break;
 
 			case GENERATE_KEY_PAIR:
 				generatedKeys = true;
@@ -216,28 +231,28 @@ var LOGIN = {
 
 				try {
 					if( StellarSdk.Keypair.fromSecret( issuerAccountSecretKey ).publicKey() != issuerAccountPublicKey) {
-						errors[ "#issuer-account-public-key" ] = "Invalid issuer account public key. Please, generate a new key pair!";
-					}					
+						errors[ "#issuer-account-public-key" ] = "Invalid issuer account public key. Please, generate a new key pair";
+					}
 				} catch(err) {
-					errors[ "#issuer-account-secret-key" ] = "Invalid issuer account checksum. Please, generate a new key pair!";
+					errors[ "#issuer-account-secret-key" ] = "Invalid issuer account checksum. Please, generate a new key pair";
 				}
 
 				break;
 
 		}
 
-		switch( $( DISTRIBUTOR_ACCOUNT ).find( "select" ).val() ) {	
+		switch( $( DISTRIBUTOR_ACCOUNT ).find( "select" ).val() ) {
 
 			case SECRET_KEY:
 				distributorAccountSecretKey = $( "#distributor-account-secret-key" ).val();
 
 				try {
-					distributorAccountPublicKey = StellarSdk.Keypair.fromSecret( distributorAccountSecretKey ).publicKey();					
+					distributorAccountPublicKey = StellarSdk.Keypair.fromSecret( distributorAccountSecretKey ).publicKey();
 				} catch(err) {
-					errors[ "#distributor-account-secret-key" ] = "Invalid distributor account checksum.";
+					errors[ "#distributor-account-secret-key" ] = "Invalid distributor account checksum";
 				}
 
-				break;   
+				break;
 
 			case GENERATE_KEY_PAIR:
 				generatedKeys = true;
@@ -247,10 +262,10 @@ var LOGIN = {
 
 				try {
 					if( StellarSdk.Keypair.fromSecret( distributorAccountSecretKey ).publicKey() != distributorAccountPublicKey) {
-						errors[ "#distributor-account-public-key" ] = "Invalid distributor account public key. Please, generate a new key pair!";
-					}					
+						errors[ "#distributor-account-public-key" ] = "Invalid distributor account public key. Please, generate a new key pair";
+					}
 				} catch(err) {
-					errors[ "#distributor-account-secret-key" ] = "Invalid distributor account checksum. Please, generate a new key pair!";
+					errors[ "#distributor-account-secret-key" ] = "Invalid distributor account checksum. Please, generate a new key pair";
 				}
 
 				break;
@@ -258,44 +273,48 @@ var LOGIN = {
 		}
 
 		if (generatedKeys && !$( "#safe-keys" ).is( ":checked" ) ) {
-			errors[ "#safe-keys" ] = "A new account was created. You must check the box!";			
+			errors[ "#safe-keys" ] = "A new account was created. You must check the box";
+			LOGIN.sendNotification( "You must confirm the keys were kept in a safe place" );
 		}
 
 		network = $( "#network" ).val();
 		language = $( "#language" ).val();
 
 		for (var key in errors) {
-			console.log(key + " : " + errors[key]);
+			if (key == "#safe-keys") continue;
+			LOGIN.sendNotification( errors[key] );
 		}
-		
+
 		if (Object.keys(errors).length == 0) {
-			LOGIN.goToMain();
+			let keys = {
+		    issuer: issuerAccountSecretKey,
+		    distributor: distributorAccountSecretKey
+		  }
 
-			console.log("issuerAccountPublicKey: ", issuerAccountPublicKey);
-			console.log("issuerAccountSecretKey: ", issuerAccountSecretKey);
-			console.log("distributorAccountPublicKey: ", distributorAccountPublicKey);
-			console.log("distributorAccountSecretKey: ", distributorAccountSecretKey);
-
-			console.log("network: ", network);
-			console.log("language: ", language);
+			LOGIN.goToMain(keys,network,language);
 		}
 
 	},
 
-	goToMain() {
-
+	goToMain(keys,network,language) {
+	  	ipcRenderer.send('signin-click', {'keys': keys, 'network': network, 'language': language});
 	},
 
 	sendNotification( msg ) {
 
-		UIkit.notification("<span uk-icon='icon: file-edit; ratio: 1'></span> " + msg, {
+		UIkit.notification('<span uk-icon="icon: file-edit; ratio: 1"></span><span class="notification" data-i18n="' + msg + '"></span>', {
 			status: 'primary',
 			pos: 'top-center',
-			timeout: 3000
+			timeout: 10000
 		});
+		$('.notification').localize();
 
 	}
 
 };
- 
+
 $( document ).ready( LOGIN.onReady );
+
+ipcRenderer.on('signin-click', function(e, params){
+  	ipcMain.send('signin-click', params);
+});

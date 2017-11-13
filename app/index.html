@@ -2,13 +2,13 @@
 <html>
 <head>
     <title>Deimos Asset Issuer | Login</title>
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="../node_modules/uikit/dist/css/uikit.min.css" />
-        
+
     <!-- Deimos CSS -->
     <link rel="stylesheet" href="css/app.global.css" />
     <link rel="stylesheet" href="css/index.css" />
@@ -20,23 +20,23 @@
         <div class="uk-width-xlarge uk-margin uk-align-center">
 
             <img src="img/logo.png" alt="Logo" class="logo uk-align-center" />
-            
+
             <div class="uk-width-large uk-margin uk-align-center">
                 <form>
-                    <h3 class="uk-heading-line uk-text-center uk-margin"><span>Issuer Account</span></h3>
+                    <h3 class="uk-heading-line uk-text-center uk-margin"><span data-i18n="Issuer Account"></span></h3>
 
                     <div id="issuer-account" class="uk-margin account">
 
                         <div class="uk-form-controls">
                             <select id="issuer-account-sign-method" class="account-sign-method uk-select ">
-                                <option value="secret-key">I own the issuer account secret key</option>
-                                <option value="generate-key-pair">I want to create a new issuing account</option>
+                                <option value="secret-key" data-i18n="I own the issuer account secret key"></option>
+                                <option value="generate-key-pair" data-i18n="I want to create a new issuing account"></option>
                             </select>
                         </div>
 
                         <div id="issuer-account-keys-placeholder" class="uk-margin">
                             <div class="uk-form-controls">
-                                <input type="password" id="issuer-account-secret-key" class="uk-input" placeholder="Secret Key">
+                                <input type="password" id="issuer-account-secret-key" class="uk-input" data-i18n="[placeholder]Secret Key">
                             </div>
                         </div>
 
@@ -44,20 +44,20 @@
 
                     <div id="issuer-account-keys-placeholder"></div>
 
-                    <h3 class="uk-heading-line uk-text-center uk-margin"><span>Distributor Account</span></h3>
+                    <h3 class="uk-heading-line uk-text-center uk-margin"><span data-i18n="Distributor Account"></span></h3>
 
                     <div id="distributor-account" class="uk-margin account">
 
                         <div class="uk-form-controls">
                             <select id="distributor-account-sign-method" class="account-sign-method uk-select ">
-                                <option value="secret-key">I own the distributor account secret key</option>
-                                <option value="generate-key-pair">I want to create a new distribution account</option>
+                                <option value="secret-key" data-i18n="I own the distributor account secret key"></option>
+                                <option value="generate-key-pair" data-i18n="I want to create a new distribution account"></option>
                             </select>
                         </div>
 
                         <div id="distributor-account-keys-placeholder" class="uk-margin">
                             <div class="uk-form-controls">
-                                <input type="password" id="distributor-account-secret-key" class="uk-input" placeholder="Secret Key">
+                                <input type="password" id="distributor-account-secret-key" class="uk-input" data-i18n="[placeholder]Secret Key">
                             </div>
                         </div>
 
@@ -65,38 +65,37 @@
 
                     <div id="distributor-account-keys-placeholder"></div>
 
-                    <div id="safe-keys-placeholder"></div>  
+                    <div id="safe-keys-placeholder"></div>
 
                     </div> <!-- Network -->
-                    <h3 class="uk-heading-line uk-text-center uk-margin"><span>Stellar Network</span></h3>
+                    <h3 class="uk-heading-line uk-text-center uk-margin"><span data-i18n="Stellar Network"></span></h3>
 
                     <div class="uk-margin">
                         <div class="uk-form-controls">
                             <select id="network" class="uk-select ">
-                                <option value="public">Public (https://horizon.stellar.org)</option>
-                                <option value="test">Test (https://horizon-testnet.stellar.org)</option>
+                                <option value="public" data-i18n="Public Net"></option>
+                                <option value="test" data-i18n="Test Net"></option>
                             </select>
                         </div>
 
-                    <h3 class="uk-heading-line uk-text-center uk-margin"><span>Language</span></h3>
+                    <h3 class="uk-heading-line uk-text-center uk-margin"><span data-i18n="Language"></span></h3>
 
                     <div class="uk-margin">
                         <div class="uk-form-controls">
                             <select id="language" class="uk-select ">
-                                <option value="en-us">English (en-US)</option>
-                                <option value="pt-br">Português (pt-BR)</option>
+                                <option value="en-US" data-i18n="English (en-US)"></option>
+                                <option value="pt-BR" data-i18n="Brazilian Portuguese"></option>
                             </select>
                         </div>
                     </div> <!-- Language -->
 
-                    <button id="continue" class="uk-button uk-button-primary uk-width-1-1 uk-margin-top">CONTINUE</button>
+                    <button id="continue" class="uk-button uk-button-primary uk-width-1-1 uk-margin-top" data-i18n="Continue"></button>
                 </form>
             </div>
         </div>
     </div>
 
     <!-- jQuery JS -->
-    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
     <script>window.$ = window.jQuery = require('jquery');</script>
 
     <!-- UIkit JS -->
@@ -105,5 +104,6 @@
 
     <!-- Deimos JS -->
     <script src="js/index.js"></script>
+    <script src="js/translations.js"></script>
 </body>
 </html>
