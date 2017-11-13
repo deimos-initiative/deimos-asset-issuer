@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Deimos Asset Issuer | New asset</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="../node_modules/uikit/dist/css/uikit.min.css" />
+
+        <!-- Deimos CSS -->
+        <link rel="stylesheet" href="css/app.global.css" />
+        <link rel="stylesheet" href="css/new-asset.css" />
+    </head>
+    <body>
+      <div class="uk-container uk-container-small uk-section-muted uk-margin-top uk-margin-bottom uk-padding uk-width-large">
+
+          <div class="uk-width-xlarge uk-margin uk-align-center">
+              <input type="hidden" id="language" value="en-US">
+              <h1 class="uk-heading-line uk-text-center uk-margin"><span data-i18n="Issuing a New Asset"></span></h1>
+
+              <div class="uk-width-large uk-margin uk-align-center">
+
+                <ul uk-accordion="multiple: true" class="uk-width-large uk-text-left">
+                      <li class="uk-open">
+                          <h2 class="uk-accordion-title uk-heading-line uk-text-center">
+                            <span data-i18n="Issuer Account"></span>
+                          </h2>
+                          <div class="uk-accordion-content">
+                            <p id="issuer-public-key" class="uk-text-small"></p>
+                          </div>
+                      </li>
+                      <li class="uk-open">
+                          <h2 class="uk-accordion-title uk-heading-line uk-text-center">
+                            <span data-i18n="Distributor Account"></span>
+                          </h2>
+                          <div class="uk-accordion-content">
+                            <p id="distribuitor-public-key" class="uk-text-small"></p>
+                          </div>
+                      </li>
+                      <li class="uk-open">
+                            <form id="new-asset-form" method="post">
+                              <fieldset>
+                                  <legend data-i18n="Asset Information"></legend>
+                                  <span data-i18n="Asset Code"></span>: <input type="text" id="new-asset-code" name="new-asset-code" /><br>
+                                  <span data-i18n="Trust Limit"></span>: <input type="number" step="0.00000001" id="new-asset-trust-limit" name="new-asset-trust-limit" /><br>
+                                  <span data-i18n="Amount to send to distributor"></span>: <input type="number" step="0.00000001" id="new-asset-initial-amount" name="new-asset-initial-amount" /><br>
+                              </fieldset>
+                              <p data-i18n="For this issuing is required the distributor account trust in issuer account"></p>
+                              <button id="issue-new-asset-button" class="uk-button uk-button-primary uk-margin-top" data-i18n="Trust, Issue and Send"></button>
+                              <div id="new-asset-spinner" uk-spinner style="display: none;"></div>
+                              &nbsp;&nbsp;<a href="#" id="close-window" data-i18n="Cancel"></a>
+
+                            </form>
+                      </li>
+                </ul>
+            </div>
+          </div>
+      </div>
+
+        <!-- jQuery JS -->
+        <script>window.$ = window.jQuery = require('jquery');</script>
+
+        <!-- UIkit JS -->
+        <script src="../node_modules/uikit/dist/js/uikit.min.js"></script>
+        <script src="../node_modules/uikit/dist/js/uikit-icons.min.js"></script>
+
+        <!-- Deimos JS -->
+        <script src="js/new-asset.js"></script>
+        <script src="js/translations.js"></script>
+    </body>
+</html>
