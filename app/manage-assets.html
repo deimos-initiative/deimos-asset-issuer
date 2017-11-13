@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deimos Asset Issuer | Manage Assets</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="../node_modules/uikit/dist/css/uikit.min.css" />
+
+    <!-- Deimos CSS -->
+    <link rel="stylesheet" href="css/app.global.css" />
+    <link rel="stylesheet" href="css/manage-assets.css" />
+
+  </head>
+  <body>
+        <div class="uk-container uk-container-small uk-section-muted uk-margin-top uk-margin-bottom uk-padding uk-width-large">
+            <div class="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
+                <div>
+                    <img src="img/logo.png" alt="Logo" class="logo uk-align-left" />
+                </div>
+                <div class="uk-align-left">
+                  <h4 class="uk-heading-line uk-text-center uk-margin"><span data-i18n="Stellar Network"></span></h4>
+                  <p id="stellar-network" class="uk-text-large"></p>
+                  <h4 class="uk-heading-line uk-text-center uk-margin"><span data-i18n="Language"></span></h4>
+                  <div class="uk-form-controls">
+                      <select id="language" class="uk-select">
+                          <option value="en-US" data-i18n="English (en-US)"></option>
+                          <option value="pt-BR" data-i18n="Brazilian Portuguese"></option>
+                      </select>
+                  </div>
+                </div>
+            </div>
+
+            <div class="uk-width-xlarge uk-margin uk-align-center">
+
+                <h1 class="uk-heading-line uk-text-center uk-margin"><span data-i18n="Manage Assets"></span></h1>
+
+                <div class="uk-width-large uk-margin uk-align-center">
+
+                  <ul uk-accordion="multiple: true" class="uk-width-large uk-text-left">
+                        <li class="uk-open">
+                            <h2 class="uk-accordion-title uk-heading-line uk-text-center">
+                              <span data-i18n="Issuer Account"></span>
+                            </h2>
+                            <div class="uk-accordion-content">
+                              <p id="issuer-public"></p>
+                              <div class="uk-button-group uk-margin">
+                                  <button id="issue-asset-button" type="button" class="uk-button uk-button-primary uk-button-small" data-i18n="Issue a New Asset" disabled></button>
+                                  <button type="button" class="uk-button uk-button-primary uk-button-small" id="issuer-trust-account-button" data-i18n="Trust an account" disabled></button>
+                                  <button type="button" id="issuer-get-lumens-button" class="uk-button uk-button-primary uk-button-small" data-i18n="Get lumens from Testnet" style="display: none;"></button>
+                              </div>
+                              <div class="uk-width-xlarge uk-margin">
+                                  <span data-i18n="Last balances update"></span>:
+                                  <span id="issuer-last-balance-msg"><span data-i18n="No updated"></span></span>
+                                  <div id="issuer-balances">
+                                    <p id="no-balance" data-i18n="No balance"></p>
+                                  </div>
+                              </div>
+                            </div>
+                        </li>
+                        <li class="uk-open">
+                            <h2 class="uk-accordion-title uk-heading-line uk-text-center">
+                              <span data-i18n="Distributor Account"></span>
+                            </h2>
+                            <div class="uk-accordion-content">
+                              <p id="distribuitor-public"></p>
+                              <div class="uk-button-group uk-margin">
+                                  <button type="button" class="uk-button uk-button-primary uk-button-small" id="distributor-trust-account-button" data-i18n="Trust an account" disabled></button>
+                                  <button type="button" class="uk-button uk-button-primary uk-button-small" id="distributor-get-lumens-button" data-i18n="Get lumens from Testnet" style="display: none;"></button>
+                              </div>
+                              <fieldset>
+                                <legend data-i18n="Asset Balances"></legend>
+                                <span data-i18n="Last balances update"></span>:
+                                <span id="distributor-last-balance-msg"><span data-i18n="No updated"></span></span>
+                                <div id="distributor-balances">
+                                  <p id="no-balance" data-i18n="No balance"></p>
+                                </div>
+                            </div>
+                        </li>
+                  </ul>
+              </div>
+            </div>
+        </div>
+
+        <!-- jQuery JS -->
+        <script>window.$ = window.jQuery = require('jquery');</script>
+
+        <!-- UIkit JS -->
+        <script src="../node_modules/uikit/dist/js/uikit.min.js"></script>
+        <script src="../node_modules/uikit/dist/js/uikit-icons.min.js"></script>
+
+        <!-- Deimos JS -->
+        <script src="js/manage-assets.js"></script>
+        <script src="js/translations.js"></script>
+
+  </body>
+</html>

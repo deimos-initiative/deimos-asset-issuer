@@ -1,0 +1,9 @@
+body > .uk-container {
+    border: 3px solid #6778ba;
+    width: 1024px;
+    /*height: 768px;*/
+}
+
+#stellar-network:first-letter {
+   text-transform: capitalize;
+}
