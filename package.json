@@ -16,9 +16,12 @@
   },
   "dependencies": {
     "electron-debug": "^1.0.0",
+    "i18next": "^10.0.7",
+    "i18next-xhr-backend": "^1.5.0",
     "jquery": "^3.2.1",
-    "uikit": "^3.0.0-beta.34",
-    "stellar-sdk": "^0.7.3"
+    "jquery-i18next": "^1.2.1",
+    "stellar-sdk": "^0.7.3",
+    "uikit": "^3.0.0-beta.34"
   },
   "devDependencies": {
     "devtron": "^1.1.0",
