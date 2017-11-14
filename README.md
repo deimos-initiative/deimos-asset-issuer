@@ -25,21 +25,14 @@ The application concretize the idea that anyone could issue an asset by just fol
 
 Deimos Asset Issuer goal is enabling entities to issue and manage their stellar network assets in an easy and uncomplicated way. Anchors would not have to deal with programming, coding or other technical stuff, they just need to download and use the application to start ICOs, issue social credits, bananas or any Stellar asset.
 
-In an second step the Deimos Initiative intend to conduct a research together with a local community in Caraguatatuba city, São Paulo, Brazil. This research will investigate the use of a Stellar Network communitary cryptocurrency. 
+In an second step the Deimos Initiative intend to conduct a research together with a local community in Caraguatatuba city, São Paulo, Brazil. This research will investigate the use of a Stellar Network communitary cryptocurrency.
 
 
-# app [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-> My superb app
+> Deimos Asset Issuer App
 
 
 ## Dev
-
-```
-$ npm install
-```
-
-### Run
 
 ```
 $ npm start
@@ -48,12 +41,12 @@ $ npm start
 ### Build
 
 ```
-$ npm run build
+$ npm run dist
 ```
 
-Builds the app for macOS, Linux, and Windows, using [electron-packager](https://github.com/electron-userland/electron-packager).
+Builds the app for macOS, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
 
 ## License
 
-MIT © [<%= name %>](<%= website %>)
+MIT © @luizjrrd and @wasare

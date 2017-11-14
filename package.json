@@ -1,21 +1,79 @@
 {
   "name": "deimos-asset-issuer",
-  "productName": "App",
+  "productName": "Deimos Asset Issuer",
   "version": "0.0.1-alpha0",
   "description": "Deimos Asset Issuer for Stellar Network",
+  "main": "main.js",
   "license": "MIT",
+  "homepage": "https://github.com/deimos-initiative/deimos-asset-issuer",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/deimos-initiative/deimos-asset-issuer.git"
   },
-  "author": "Deimos Initiative",
+  "bugs": {
+    "url": "https://github.com/deimos-initiative/deimos-asset-issuer/issues"
+  },
   "scripts": {
-    "test": "xo",
-    "start": "electron .",
-    "build": "electron-packager . --out=dist --asar --overwrite --all"
+    "postinstall": "electron-builder install-app-deps",
+    "start": "npm install && electron .",
+    "pack": "build --dir",
+    "dist": "build",
+    "publish": "publish",
+    "release": "npm run dist && npm run publish"
+  },
+  "author": "Deimos Initiative <wsreis+deimos@gmail.com>",
+  "contributors": [
+    {
+      "name": "@luizjrrd",
+      "email": "luizjrrd@gmail.com"
+    },
+    {
+      "name": "@wasare",
+      "email": "wsreis@gmail.com"
+    }
+  ],
+  "engines": {
+    "node": ">=6.0"
+  },
+  "build": {
+    "appId": "deimoisinitiative.asset-issuer",
+    "mac": {
+      "category": "public.app-category.finance",
+      "type": "distribution"
+    },
+    "dmg": {
+      "title": "${productName} ${version}",
+      "icon": "build/icon.icns",
+      "backgroundColor": "#888888",
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/",
+      "category": "Office"
+    },
+    "win": {
+      "target": "Squirrel",
+      "icon": "build/icon.ico"
+    }
   },
   "dependencies": {
-    "electron-debug": "^1.0.0",
+    "electron-is-dev": "^0.3.0",
+    "electron-packager": "^9.1.0",
     "i18next": "^10.0.7",
     "i18next-xhr-backend": "^1.5.0",
     "jquery": "^3.2.1",
@@ -25,20 +83,22 @@
   },
   "devDependencies": {
     "devtron": "^1.1.0",
-    "electron": "^1.6.6",
-    "electron-packager": "^8.0.0",
+    "electron": "^1.8.1",
+    "electron-builder": "19.32.*",
+    "electron-builder-squirrel-windows": "19.32.*",
+    "electron-debug": "^1.4.0",
     "electron-reload": "^1.2.2",
     "xo": "^0.18.0"
+  },
+  "optionalDependencies": {
+    "electron-installer-debian": "^0.6.0",
+    "electron-installer-dmg": "^0.2.1",
+    "electron-installer-windows": "^0.2.0"
   },
   "xo": {
     "envs": [
       "node",
       "browser"
     ]
-  },
-  "bugs": {
-    "url": "https://github.com/deimos-initiative/deimos-asset-issuer/issues"
-  },
-  "homepage": "https://github.com/deimos-initiative/deimos-asset-issuer",
-  "main": "main.js"
+  }
 }

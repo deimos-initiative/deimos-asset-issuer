@@ -4,15 +4,16 @@ const electron = require('electron');
 const path = require('path');
 const url = require('url');
 
-require('electron-reload')(__dirname, {
-    electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
-})
+//process.env.ELECTRON_IS_DEV = 0; // for testing as production env
+const isDev = require('electron-is-dev');
 
-// Adds debug features like hotkeys for triggering dev tools and reload
-require('electron-debug')();
-
-// SET ENV
-process.env.NODE_ENV = 'development';
+if(isDev) {
+  require('electron-reload')(__dirname, {
+      electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+  });
+  // Adds debug features like hotkeys for triggering dev tools and reload
+  require('electron-debug')();
+}
 
 const {app, BrowserWindow, Menu, ipcMain} = electron;
 
@@ -109,7 +110,7 @@ if(process.platform == 'darwin'){
 }
 
 // Add developer tools option if in dev
-if(process.env.NODE_ENV !== 'production'){
+if(isDev){
   mainMenuTemplate.push({
     label: 'Developer Tools',
     submenu:[
