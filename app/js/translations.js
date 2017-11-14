@@ -5,6 +5,7 @@ const jqueryI18next = require('jquery-i18next');
 i18next
 .use(i18nextXHRBackend)
 .init({
+    whitelist: ['en-US', 'pt-BR'],
     fallbackLng: 'en-US',
     debug: false,
     ns: ['deimos-issuer'],
