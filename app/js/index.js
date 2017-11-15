@@ -2,12 +2,14 @@ var StellarSdk = require('stellar-sdk');
 
 const {remote, ipcMain, ipcRenderer} = require('electron');
 
+const appVersion = window.require('electron').remote.app.getVersion();
+
 // TODO: better window autoresize
-let currentWindow = remote.getCurrentWindow();
-var contentSize = currentWindow.getContentSize();
-var baseWidth = $('.uk-container').width();
-var baseHeight = $('.uk-container').height();
-currentWindow.setContentSize(baseWidth + 100, baseHeight + 120);
+// let currentWindow = remote.getCurrentWindow();
+// var contentSize = currentWindow.getContentSize();
+// var baseWidth = $('.uk-container').width();
+// var baseHeight = $('.uk-container').height();
+// currentWindow.setContentSize(baseWidth + 100, baseHeight + 120);
 
 const SAFE_KEYS = "#safe-keys";
 const SAFE_KEYS_PLACEHOLDER = "#safe-keys-placeholder";
@@ -34,8 +36,9 @@ var LOGIN = {
 
 		$( CONTINUE ).click( LOGIN.validateForm );
 
-		$( LANGUAGE ).val('en-US');
-
+		$( LANGUAGE ).val('en-US');		
+		
+        $( "#version" ).html( appVersion );
 	},
 
 	onAccountSignMethodChange: function() {

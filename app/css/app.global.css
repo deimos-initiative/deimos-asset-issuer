@@ -30,3 +30,7 @@ select {
 .uk-checkbox:focus {
 	border-color: #6f80c3 !important;
 }
+
+.uk-badge {
+    background: #5e6fb0;
+}
