@@ -15,6 +15,7 @@
   </head>
   <body>
         <div class="uk-container uk-container-small uk-section-muted uk-margin-top uk-margin-bottom uk-padding uk-width-large">
+            <span class="uk-badge" id="version"></span>
             <div class="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
                 <div>
                     <img src="img/logo.png" alt="Logo" class="logo uk-align-left" />
@@ -48,13 +49,13 @@
                               <div class="uk-button-group uk-margin">
                                   <button id="issue-asset-button" type="button" class="uk-button uk-button-primary uk-button-small" data-i18n="Issue a New Asset" disabled></button>
                                   <button type="button" class="uk-button uk-button-primary uk-button-small" id="issuer-trust-account-button" data-i18n="Trust an account" disabled></button>
-                                  <button type="button" id="issuer-get-lumens-button" class="uk-button uk-button-primary uk-button-small" data-i18n="Get lumens from Testnet" style="display: none;"></button>
                               </div>
                               <div class="uk-width-xlarge uk-margin">
                                   <span data-i18n="Last balances update"></span>:
                                   <span id="issuer-last-balance-msg"><span data-i18n="No updated"></span></span>
                                   <div id="issuer-balances">
                                     <p id="no-balance" data-i18n="No balance"></p>
+                                    <a href="#" id="issuer-get-lumens-button" data-i18n="Get lumens from Testnet" style="display: none;"></a>
                                   </div>
                               </div>
                             </div>
@@ -67,7 +68,6 @@
                               <p id="distribuitor-public"></p>
                               <div class="uk-button-group uk-margin">
                                   <button type="button" class="uk-button uk-button-primary uk-button-small" id="distributor-trust-account-button" data-i18n="Trust an account" disabled></button>
-                                  <button type="button" class="uk-button uk-button-primary uk-button-small" id="distributor-get-lumens-button" data-i18n="Get lumens from Testnet" style="display: none;"></button>
                               </div>
                               <fieldset>
                                 <legend data-i18n="Asset Balances"></legend>
@@ -75,6 +75,7 @@
                                 <span id="distributor-last-balance-msg"><span data-i18n="No updated"></span></span>
                                 <div id="distributor-balances">
                                   <p id="no-balance" data-i18n="No balance"></p>
+                                  <a href="#" id="distributor-get-lumens-button" data-i18n="Get lumens from Testnet" style="display: none;"></a>
                                 </div>
                             </div>
                         </li>

@@ -9,6 +9,8 @@ const {remote, webContents, ipcRenderer, ipcMain} = electron
 let currentWindow = remote.getCurrentWindow();
 currentWindow.setContentSize(768, 1024);
 
+const appVersion = window.require('electron').remote.app.getVersion();
+
 const issuerPair = StellarSdk.Keypair.fromSecret(remote.getGlobal('secretKeys').issuer);
 const distributorPair = StellarSdk.Keypair.fromSecret(remote.getGlobal('secretKeys').distributor);
 const issuerPublic = issuerPair.publicKey();
@@ -29,6 +31,7 @@ else {
 var MANAGE_ASSETS = {
   onReady: function() {
       $('#language').val(language);
+      $("#version").html(appVersion);
       currentWindow.webContents.executeJavaScript('loadTranslations()');
 
       $('#issuer-public').text(issuerPublic);
@@ -133,7 +136,7 @@ var MANAGE_ASSETS = {
                 if (json.balances.length > 0) {
                   $.each(json.balances, function(i, item) {
                     if(item.asset_type == 'native') {
-                      lumens = '<br /><div><span id="lumens-balance"><b>XLM (Stellar Lumens) - <span data-i18n="Balance"></span></b></span>: ';
+                      lumens = '<br /><div><span id="lumens-balance"><b>XLM (Stellar Lumens)</b></span>: ';
                       lumens += '<span id="issuer-xlm-balance">' + item.balance + '</span></div><br />';
                     }
                  });
@@ -168,7 +171,7 @@ var MANAGE_ASSETS = {
                   if (json.balances.length > 0) {
                       $.each(json.balances, function(i, item) {
                         if(item.asset_type == 'native') {
-                          lumens = '<br /><div><span id="lumens-balance"><b>XLM (Stellar Lumens) - <span data-i18n="Balance"></span></b></span>: ';
+                          lumens = '<br /><div><span id="lumens-balance"><b>XLM (Stellar Lumens)</b></span>: ';
                           lumens += '<span id="distributor-xlm-balance">' + item.balance + '</span></div><br />';
                         }
                         else {

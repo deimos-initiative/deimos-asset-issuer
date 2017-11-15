@@ -44,7 +44,7 @@
     "dmg": {
       "title": "${productName} ${version}",
       "icon": "build/icon.icns",
-      "backgroundColor": "#888888",
+      "backgroundColor": "#5e6fb0",
       "contents": [
         {
           "x": 110,
@@ -67,7 +67,7 @@
       "category": "Office"
     },
     "win": {
-      "target": "Squirrel",
+      "target": "portable",
       "icon": "build/icon.ico"
     }
   },
