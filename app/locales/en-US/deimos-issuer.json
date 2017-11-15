@@ -19,7 +19,7 @@
   "Invalid distributor account public key. Please, generate a new key pair": "Invalid distributor account public key. Please, generate a new key pair!",
   "Invalid distributor account checksum. Please, generate a new key pair": "Invalid distributor account checksum. Please, generate a new key pair!",
   "You must confirm the keys were kept in a safe place": "You must confirm the keys were kept in a safe place. Please, check the box!",
-  "Keep keys in a safe place": "I state the keys were kept in a safe place. I understand that once lost the account cannot be recovered.",
+  "Keep keys in a safe place": " I state the keys were kept in a safe place. I understand that once lost the account cannot be recovered.",
   "Asset Balances": "Balances",
   "Continue": "Continue",
   "Cancel": "Cancel",

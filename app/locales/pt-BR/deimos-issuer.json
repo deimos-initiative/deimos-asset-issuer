@@ -19,7 +19,7 @@
   "Invalid distributor account public key. Please, generate a new key pair": "Chave pública da conta distribuidora é inválida. Por favor, tente gerar um novo par de chaves!",
   "Invalid distributor account checksum. Please, generate a new key pair": "Chave privada da conta distribuidora é inválida. Por favor, tente gerar um novo par de chaves",
   "You must confirm the keys were kept in a safe place": "Você deve confirma que as chaves geradas para a nova conta estão mantidas em um local seguro.",
-  "Keep keys in a safe place": "Eu declaro que as chaves foram mantidas em um lugar seguro. Eu entendo que uma vez que as chaves se perderem a conta não pode ser recuperada.",
+  "Keep keys in a safe place": " Eu declaro que as chaves foram mantidas em um lugar seguro. Eu entendo que uma vez que as chaves se perderem a conta não pode ser recuperada.",
   "Asset Balances": "Saldos de Ativos",
   "Continue": "Continuar",
   "Cancel": "Cancelar",
