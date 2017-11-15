@@ -33,6 +33,7 @@ app.on('ready', function(){
     mainWindow = new BrowserWindow({
         frame: true,
         // resizable: false,
+        icon: __dirname + '/build/64x64.png',
         width: 1024,
         height: 768,
         'use-content-size': true,
