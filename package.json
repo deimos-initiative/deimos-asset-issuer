@@ -74,28 +74,27 @@
   "dependencies": {
     "chokidar": "^3.5.2",
     "electron-is-dev": "^0.3.0",
-    "electron-packager": "^15.2.0",
-    "electron-rebuild": "^2.3.5",
     "i18next": "^10.0.7",
     "i18next-xhr-backend": "^1.5.0",
     "jquery": "^3.2.1",
     "jquery-i18next": "^1.2.1",
-    "stellar-sdk": "^8.2.3",
+    "stellar-sdk": "^13.3.0",
     "uikit": "^3.0.0-beta.34"
   },
   "devDependencies": {
     "devtron": "^1.1.0",
-    "electron": "^13.1.6",
-    "electron-builder": "^22.11.7",
-    "electron-builder-squirrel-windows": "19.32.*",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.17",
     "electron-debug": "^1.4.0",
+    "electron-packager": "^17.1.2",
+    "electron-rebuild": "^3.2.9",
     "electron-reload": "^1.2.2",
-    "xo": "^0.41.0"
+    "xo": "^1.1.1"
   },
   "optionalDependencies": {
-    "electron-installer-debian": "^0.6.0",
+    "electron-installer-debian": "^3.2.0",
     "electron-installer-dmg": "^0.2.1",
-    "electron-installer-windows": "^0.2.0"
+    "electron-installer-windows": "^3.0.0"
   },
   "xo": {
     "envs": [
